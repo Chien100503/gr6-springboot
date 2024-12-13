@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #495057;
+            margin-bottom: 20px;
+        }
+
+        form label {
+            font-weight: 500;
+            color: #495057;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form input[type="text"],
+        form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        form input[type="text"]:focus,
+        form select:focus {
+            outline: none;
+            border-color: #80bdff;
+            box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/user/add}" th:object="${user}" method="post">
+    <h2>Add User</h2>
+
+    <label for="firstname">First Name:</label>
+    <input type="text" id="firstname" name="firstname" th:field="*{firstname}" placeholder="Enter first name" required>
+
+    <label for="lastname">Last Name:</label>
+    <input type="text" id="lastname" name="lastname" th:field="*{lastname}" placeholder="Enter last name" required>
+
+    <label for="company">Company:</label>
+    <select id="company" name="companyId" required>
+        <option th:each="company : ${companies}" th:value="${company.id}" th:text="${company.name}"></option>
+    </select>
+
+    <button type="submit">Save</button>
+    <br>
+    <a th:href="@{/users}">Back to User List</a>
+</form>
+</body>
+</html>

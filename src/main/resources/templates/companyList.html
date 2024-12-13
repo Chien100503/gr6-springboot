@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Company List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .actions a {
+      margin-right: 10px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+    .actions a:hover {
+      text-decoration: underline;
+    }
+    .add-new {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .add-new:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+<h2>Company List</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Users</th>
+    <th>Actions</th>
+  </tr>
+  <tr th:each="company : ${companies}">
+    <td th:text="${company.id}"></td>
+    <td th:text="${company.name}"></td>
+    <td>
+      <ul>
+        <li th:each="user : ${company.users}" th:text="${user.getFirstname().concat(' ') + user.getLastname()}"></li>
+      </ul>
+    </td>
+    <td class="actions">
+      <a th:href="@{/company/edit/{id}(id=${company.id})}">Edit</a>
+      <a th:href="@{/company/delete/{id}(id=${company.id})}">Delete</a>
+    </td>
+  </tr>
+</table>
+<a class="add-new" th:href="@{/company/add}">Add New Company</a>
+</body>
+</html>
